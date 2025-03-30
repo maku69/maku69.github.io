@@ -198,6 +198,7 @@
         const checkboxes = document.querySelectorAll('.stat-checkbox');
         const passiveSkillsContent = document.getElementById('passive-skills-content');
 
+        // Tab switching logic
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
@@ -208,6 +209,7 @@
             });
         });
 
+        // Input validation for stats
         inputs.forEach(input => {
             input.addEventListener('input', () => {
                 let total = 0;
@@ -284,6 +286,21 @@
                                 <li>Level 37: Radiant Spirit - Gain bonus Intelligence, scaling with Spirit (+100% scaling).</li>
                             </ul>
                         `;
+                    } else if (index === 4) { // Striker checkbox
+                        passiveSkillsContent.innerHTML = `
+                            <h3>Striker Passive Skills</h3>
+                            <ul>
+                                <li>Level 6: Focus Training - Reduce Focus regeneration delay. (-0.5 second)</li>
+                                <li>Level 17: Focus Training II - Reduce Focus regeneration delay. (-1 second)</li>
+                                <li>Level 18: Trained - Successful Parry gives Damage Reduction. Gives 5% damage reduction for 4 seconds, stacks up to 15% with three parries.</li>
+                                <li>Level 20: Tackle - Land Brace's second part to gain damage reduction. If Limit Breaker is used while tackle is active, it won't cost anything. 25% damage reduction for 7 seconds.</li>
+                                <li>Level 20: Gauntlet Mastery - Increases Gauntlet Damage by 10%</li>
+                                <li>Level 27: Focus Training III - Reduce Focus regeneration delay. (-2 seconds)</li>
+                                <li>Level 32: Pain Conversion - When struck, you recover 2.5% HP, but this effect can only occur once every 10 seconds.</li>
+                                <li>Level 35: Counter Force - Gain a damage bonus when struck while in hyperarmor. 25% damage buff for 4 seconds. Brace, Vertical Strike, Power Strike, Uppercut, and Axe Kick can all trigger it.</li>
+                                <li>Level 40: Rampage - A barrage of smashes.</li>
+                            </ul>
+                        `;
                     } else if (index === 5) { // Thief checkbox
                         passiveSkillsContent.innerHTML = `
                             <h3>Thief Passive Skills</h3>
@@ -306,6 +323,131 @@
                 }
             });
         });
+
+        const classAbilities = {
+            priest: [
+                { level: 1, name: "Holy Light - Heal a light amount to a target. Holding right click applies it to yourself." },
+                { level: 3, name: "Lesser Strength, Lesser Dexterity, and Lesser Intelligence" },
+                { level: 4, name: "Dispels - Removes debuffs from a target. Holding right click applies it to yourself." },
+                { level: 5, name: "Holy Shield - Casts a shield on a target. Holding right click applies it to yourself. Scales 1x with Spirit." },
+                { level: 10, name: "Holy Fire - Scorch a target, dealing holy damage and lingering burning damage." },
+                { level: 13, name: "Holy Imbue - Activate to have basic attacks deal holy damage." },
+                { level: 16, name: "Lesser Strength, Lesser Dexterity, and Lesser Intelligence Evolution" },
+                { level: 17, name: "Flash Heal - Casts a light heal to a target immediately. Holding right click applies it to yourself." },
+                { level: 20, name: "Smite - Cast a lightning strike on a target, dealing moderate damage." },
+                { level: 24, name: "Enlightenment - Channel for several seconds. Massively heal yourself and nearby allies." },
+                { level: 27, name: "Divine Volley - Cast a ball that heals nearby allies and damages enemies on impact." },
+                { level: 31, name: "Greater Smite - Cast a greater lightning strike on a target, dealing huge damage and knocking enemies upwards." },
+                { level: 32, name: "Strength, Dexterity, and Intelligence Evolution" },
+                { level: 32, name: "Resurrection - Channel on the corpse of a player. Bring them back from the dead with small health and mana." },
+                { level: 40, name: "Suveriass Light - Immediately heals a great amount of health to target player. Holding right click applies it to yourself." }
+            ],
+            thief: [
+                { level: 1, name: "Piercing Strike - Thrust forwards with your weapon." },
+                { level: 3, name: "Weapon Throw - Throw a weapon at your target (aims with mouse)." },
+                { level: 5, name: "Battle Aura - +25 Attack Power, +5% Speed Boost, +5% Damage reduction (Active | 18s Duration)" },
+                { level: 10, name: "Piercing Strike Evolution - Piercing Slash: Dash forward and deliver a sweeping thrust. Piercing Thrust: Dash forward with a powerful thrust, driving your weapon deeper into the target." },
+                { level: 15, name: "Battle Aura Evolution - Fierce Battle Aura: Temporarily Increases Damage. Swift Battle Aura: Temporarily Increases Movement Speed (10% speed boost for 20 seconds). Fortified Battle Aura: Temporarily Increases Defense." },
+                { level: 18, name: "Weapon Throw Evolution - Triple Dagger Throw: Hurls three weapons in a fan pattern, causing a bleed effect if all three hit the target. Shuriken Barrage: Throws a barrage of shurikens, damaging your enemy." },
+                { level: 22, name: "Backstab - Swift strike to the target. Significantly increases critical chance when striking from behind." },
+                { level: 25, name: "Battle Aura Evolution 3 - Choices based on your previous chosen battle aura. Fierce Battle Aura: Savage Battle Aura or Warrior's Battle Aura. Swift Battle Aura: Rapid Battle Aura or Alacrity Battle Aura. Fortified Battle Aura: Aegis Battle Aura or Protective Battle Aura." },
+                { level: 28, name: "Liver Shot - Stab your target with a blow that stuns them for a short time." },
+                { level: 35, name: "Ambush - Piercing strike that secures a hold on the target." },
+                { level: 40, name: "Deathmark - Unleashing Ambush upon a target already bleeding invokes Deathmark." }
+            ],
+            striker: [
+                { level: 1, name: "Strike - A simple strike that knocks enemies back." },
+                { level: 3, name: "Brace - Enter a defensive stance that lowers incoming damage. Then, swiftly strike." },
+                { level: 5, name: "Battle Aura - +25 Attack Power, +5% Speed Boost, +5% Damage reduction (Active | 18s Duration)" },
+                { level: 8, name: "Vertical Strike - Uppercut that hits multiple times." },
+                { level: 10, name: "Strike Evolution - Rapid Strike: A rapid flurry of strikes. Power Strike: A strike that can be charged for more power." },
+                { level: 15, name: "Limit Breaker - Activate to gain an attack and movement speed buff, at the cost of some health." },
+                { level: 15, name: "Battle Aura Evolution - Fierce Battle Aura: Temporarily Increases Damage. Swift Battle Aura: Temporarily Increases Movement Speed. Fortified Battle Aura: Temporarily Increases Defense." },
+                { level: 22, name: "Blast - Harness energy to be sent as a projectile." },
+                { level: 25, name: "Battle Aura Evolution 3 - Choices based on your previous chosen battle aura." },
+                { level: 26, name: "Uppercut - Deliver a powerful uppercut that ignores enemy attacks." },
+                { level: 28, name: "Leap Smash - Propel yourself forward, crashing into the ground with immense force upon impact." },
+                { level: 34, name: "Blast Evolution - Blast Barrage: A barrage of aura blasts. Charged Blast: A super charged aura blast." },
+                { level: 36, name: "Axe Kick - Slam the ground with a powerful kick, executing enemies below a certain amount." },
+                { level: 40, name: "Rampage - Attack wildly in front of you." }
+            ],
+            magician: [
+                { level: 1, name: "Magic Arrow - Fire a small magic arrow at a target." },
+                { level: 3, name: "Lesser Strength, Lesser Dexterity, and Lesser Intelligence" },
+                { level: 5, name: "Mana Shield - Gives Damage Reduction for 5 hits, lowering in effectiveness every hit." },
+                { level: 7, name: "Conjure Food and Water I - Conjure basic food and water to replenish health, hunger, and mana." },
+                { level: 10, name: "Mana Bomb - Conjure a large ball of Mana and fire it forward, dealing AOE damage." },
+                { level: 13, name: "Magic Imbue - Activate to have basic attacks deal magic damage." },
+                { level: 15, name: "Magic Arrow Evolution - Fires three arrows at the same time or in quick succession." },
+                { level: 16, name: "Lesser Strength, Lesser Dexterity, and Lesser Intelligence Evolution" },
+                { level: 22, name: "Conjure Food and Water II - Improved food and water for better replenishment." },
+                { level: 30, name: "Blink - Teleports the caster forward." },
+                { level: 32, name: "Strength, Dexterity, and Intelligence Evolution" },
+                { level: 33, name: "Overload - Amplifies magic power for a short duration (+50% Magic damage, 15 seconds)." },
+                { level: 36, name: "Conjure Food and Water III - Conjure amazing food and water for maximum replenishment." },
+                { level: 40, name: "Arcane Storm - Conjures magical arrows from the sky, dealing constant damage to an area." }
+            ],
+            archer: [
+                { level: 1, name: "Power Shot - Shoot an average arrow in front of you." },
+                { level: 5, name: "Battle Aura - +25 Attack Power, +5% Speed Boost, +5% Damage reduction (Active | 18s Duration)" },
+                { level: 8, name: "Evasive Shot - Shoot an arrow while dashing backwards." },
+                { level: 10, name: "Power Shot Evolution - Triple Shot: Shoot three arrows at the same time. Multi Shot: Shoot three arrows in quick succession." },
+                { level: 13, name: "Mark - A self-buff that tailors to your tamed pet." },
+                { level: 15, name: "Battle Aura Evolution - Fierce Battle Aura: Temporarily Increases Damage. Swift Battle Aura: Temporarily Increases Movement Speed. Fortified Battle Aura: Temporarily Increases Defense." },
+                { level: 15, name: "Auto Shot - Sends a homing arrow to your target." },
+                { level: 25, name: "Auto Shot Evolution - Double Track: Unleash two homing arrows. Concussive Shot: The homing arrow now slows the target." },
+                { level: 25, name: "Battle Aura Evolution 3 - Choices based on your previous chosen battle aura." },
+                { level: 28, name: "Hunter's Mark - Mark an enemy. That enemy takes increased damage from all sources. (Active | 30s Duration)" },
+                { level: 30, name: "Arrow Rain - Launch an arrow in the sky. The target area will take constant fire from raining arrows for a good while." },
+                { level: 40, name: "Whirling Arrow - Fire an arrow that drills into the target, dealing continuous damage." }
+            ],
+            warrior: [
+                { level: 1, name: "Slashing Strike - An exceptionally swift slash." },
+                { level: 5, name: "Battle Aura - +25 Attack Power, +5% Speed Boost, +5% Damage reduction (Active | 18s Duration)" },
+                { level: 8, name: "Assault - Two spin slashes in the direction you aim." },
+                { level: 10, name: "Slashing Strike Evolution - Four-Fold Slash of Light: Unleashes four quick slashes in front of you. Air variant sends projectiles. Mortal Strike: A powerful downward cleave. Enemies hit take 33% more damage from you. Shield Bash: Requires a shield. Strikes the enemy with your shield while auto-blocking is active." },
+                { level: 13, name: "Charge - Dash forward towards your target to close the gap." },
+                { level: 15, name: "Battle Aura Evolution - Fierce Battle Aura: Temporarily Increases Damage. Swift Battle Aura: Temporarily Increases Movement Speed. Fortified Battle Aura: Temporarily Increases Defense." },
+                { level: 16, name: "Counter - Enter a stance. If attacked in this stance, you counterattack with i-frames, dealing a strong strike followed by 4–6 weaker attacks." },
+                { level: 21, name: "Hindsight Slash - Deliver a slash. If this slash hits, you will do another follow-up slash." },
+                { level: 23, name: "Greater Counter - Counter's first hit gains bonus damage, scaled with the damage of the hit that triggered it." },
+                { level: 25, name: "Battle Aura Evolution 3 - Choices based on your previous chosen battle aura. Fierce Battle Aura: Savage Battle Aura or Warrior's Battle Aura. Swift Battle Aura: Rapid Battle Aura or Alacrity Battle Aura. Fortified Battle Aura: Aegis Battle Aura or Protective Battle Aura." },
+                { level: 28, name: "Whirl Wind - Spin for 2-4 seconds, dealing medium damage to nearby enemies." },
+                { level: 36, name: "Leap - Leap forward, stunning and dealing damage on impact." },
+                { level: 40, name: "Thrusting Strike - Deliver a devastating blow, sending any enemies backwards." }
+            ]
+        };
+
+        const abilitiesContent = document.getElementById('abilities');
+
+        function updateAbilities() {
+            abilitiesContent.innerHTML = `<h2>Abilities</h2>`;
+
+            Object.keys(classAbilities).forEach(className => {
+                const levelInput = document.getElementById(className);
+                const level = parseInt(levelInput.value) || 0;
+
+                const filteredAbilities = classAbilities[className].filter(ability => ability.level <= level);
+
+                if (filteredAbilities.length > 0) {
+                    abilitiesContent.innerHTML += `
+                        <h3>${className.charAt(0).toUpperCase() + className.slice(1)} Abilities (Level ${level})</h3>
+                        <ul>
+                            ${filteredAbilities.map(ability => `<li>Level ${ability.level}: ${ability.name}</li>`).join('')}
+                        </ul>
+                    `;
+                }
+            });
+        }
+
+        // Add event listeners for all class inputs
+        Object.keys(classAbilities).forEach(className => {
+            const levelInput = document.getElementById(className);
+            levelInput.addEventListener('input', updateAbilities);
+        });
+
+        // Initial update
+        updateAbilities();
     </script>
 </body>
 </html>

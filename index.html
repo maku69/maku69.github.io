@@ -103,7 +103,6 @@
                 <div class="stat-header">
                     <div class="checkbox-column">Starting class</div>
                     <div class="stat-column">Stats</div>
-                  
                 </div>
 
                 <!-- Stat ridu -->
@@ -174,6 +173,7 @@
                     </div>
                 </div>
             </div>
+            <button id="reset-button">Reset</button>
             <p class="error" id="error"></p>
         </div>
 
@@ -197,6 +197,8 @@
         const error = document.getElementById('error');
         const checkboxes = document.querySelectorAll('.stat-checkbox');
         const passiveSkillsContent = document.getElementById('passive-skills-content');
+        const resetButton = document.getElementById('reset-button');
+        const abilitiesContent = document.getElementById('abilities');
 
         // Tab switching logic
         tabs.forEach(tab => {
@@ -418,8 +420,6 @@
             ]
         };
 
-        const abilitiesContent = document.getElementById('abilities');
-
         function updateAbilities() {
             abilitiesContent.innerHTML = `<h2>Abilities</h2>`;
 
@@ -448,6 +448,18 @@
 
         // Initial update
         updateAbilities();
+
+        // Reset button logic
+        resetButton.addEventListener('click', () => {
+            inputs.forEach(input => {
+                input.value = 0; // Reset all stat inputs to 0
+            });
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false; // Uncheck all checkboxes
+            });
+            passiveSkillsContent.innerHTML = `<p>Select a starting class to see passive skills.</p>`; // Reset Passive Skills tab content
+            updateAbilities(); // Update abilities tab
+        });
     </script>
 </body>
 </html>

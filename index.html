@@ -46,6 +46,14 @@
         .tab-content.active {
             display: block;
         }
+        .tab-content {
+            min-height: 300px; /* Määrab minimaalne kõrgus */
+            min-width: 700px;  /* Määrab minimaalne laius */
+            padding: 20px;
+            box-sizing: border-box; /* Tagab, et padding ei mõjuta suurust */
+            max-height: 500px; /* Määrab maksimaalse kõrguse */
+            overflow-y: auto; /* Lisab vertikaalse kerimise, kui sisu ületab maksimaalse kõrguse */
+        }
         .stats {
             display: flex;
             flex-direction: column;
@@ -130,22 +138,50 @@
         html, body {
             height: 100%;
             margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center; /* Keskenda horisontaalselt */
+            align-items: center; /* Keskenda vertikaalselt */
+            background-color: #f9f9f9; /* Taustavärv */
         }
 
         .container {
-            flex: 1; /* Võtab ülejäänud ruumi, et jalus liiguks lehe lõppu */
+            max-width: 90%; /* Võtab kuni 90% brauseriakna laiusest */
+            width: 1000px; /* Lase konteineril laieneda vastavalt sisule */
+            background: #fff;
+            padding: 20px; /* Suurenda sisu ümber olevat ruumi */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Suurenda varju */
+            border-radius: 12px; /* Tee nurgad veidi ümaramaks */
         }
 
-        footer {
-            text-align: left;
-            font-size: 14px;
-            color: #666;
-            background-color: #f9f9f9;
-            padding: 10px;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
         }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            background-color: #f1f1f1;
+        }
+
+        .tab.active {
+            background-color: #fff;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            border: 1px solid #ccc;
+            padding: 20px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+   
     </style>
 </head>
 <body>
@@ -156,6 +192,8 @@
             <div class="tab" data-tab="abilities">Abilities</div>
             <div class="tab" data-tab="passive-skills">Passive Skills</div>
             <div class="tab" data-tab="armor">Armor</div>
+            <div class="tab" data-tab="runes">Runes</div> <!-- Uus tab -->
+            <div class="tab" data-tab="about">About</div>
         </div>
         <div id="stats" class="tab-content active">
             <!-- Stats sisu -->
@@ -937,6 +975,19 @@
                 <p>No items selected.</p>
             </div>
         </div>
+        <div id="runes" class="tab-content">
+            <!-- Runes sisu -->
+            <h2>Runes</h2>
+            <div id="runes-content">
+                <p>No armor selected.</p>
+            </div>
+        </div>
+        <div id="about" class="tab-content">
+            <!-- About sisu -->
+            <h2>About</h2>
+            <p>Version 1.0.0</p>
+            <p>Made by 1Maku</p>
+        </div>
     </div>
 
     <script>
@@ -1295,10 +1346,37 @@
                 }
             });
         });
+
+        function updateRunesTab() {
+            const selected = Array.from(armorCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            const runesContent = document.getElementById('runes-content');
+
+            if (selected.length === 0) {
+                runesContent.innerHTML = '<p>No armor selected.</p>';
+            } else {
+                runesContent.innerHTML = `
+                    <h4>Selected Armors:</h4>
+                    <ul>
+                        ${selected.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                `;
+            }
+        }
+
+        // Uuenda "Runes" tab-i, kui armor valitakse
+        armorCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                updateRunesTab();
+                calculateStats(); // Jätke ka stats arvutamine
+            });
+        });
+
+        // Algne uuendus lehe laadimisel
+        document.addEventListener('DOMContentLoaded', updateRunesTab);
     </script>
-    <!-- Jalus -->
-    <footer>
-        <p>Version 1.0.0 Made by 1Maku</p>
-    </footer>
+   
 </body>
 </html>

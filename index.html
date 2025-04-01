@@ -184,7 +184,7 @@
    
         #runes-content {
             display: flex;
-            flex-direction: column; /* Stack the name row and dropdowns row */
+            flex-direction: column; /* Stack the name row and dropdown rows */
             gap: 20px; /* Add spacing between rows */
         }
 
@@ -197,6 +197,7 @@
 
         .rune-names div {
             flex: 1; /* Make each name take equal space */
+            text-align: center; /* Center the text inside each column */
         }
 
         .rune-dropdowns-row {
@@ -1422,6 +1423,10 @@
             if (selected.length === 0) {
                 runesContent.innerHTML = '<p>No armor selected.</p>';
             } else {
+                // Generate names row
+                const armorNames = selected.map(item => `<div>${item.name}</div>`).join('');
+
+                // Generate dropdowns row
                 const dropdownSections = selected.map(item => {
                     let dropdownOptions = '';
                     let dropdownHTML = '';
@@ -1504,16 +1509,20 @@
                     }
 
                     return `
-                        <div class="rune-section">
-                            <h5>${item.name}</h5>
-                            <div class="rune-dropdowns">
-                                ${dropdownHTML}
-                            </div>
+                        <div class="rune-dropdown-group">
+                            ${dropdownHTML}
                         </div>
                     `;
                 }).join('');
 
-                runesContent.innerHTML = dropdownSections;
+                runesContent.innerHTML = `
+                    <div class="rune-names">
+                        ${armorNames}
+                    </div>
+                    <div class="rune-dropdowns-row">
+                        ${dropdownSections}
+                    </div>
+                `;
             }
         }
 
@@ -1521,7 +1530,6 @@
         armorCheckboxes.forEach(checkbox => {
             checkbox.addEventListener('change', () => {
                 updateRunesTab();
-                calculateStats(); // Keep stats calculation
             });
         });
 

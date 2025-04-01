@@ -1350,7 +1350,11 @@
         function updateRunesTab() {
             const selected = Array.from(armorCheckboxes)
                 .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value);
+                .map(checkbox => ({
+                    name: checkbox.value,
+                    listId: checkbox.closest('.armor-list').id, // Get the parent list ID
+                    subCategory: checkbox.closest('ul').id // Get the specific subcategory ID
+                }));
 
             const runesContent = document.getElementById('runes-content');
 
@@ -1360,21 +1364,130 @@
                 runesContent.innerHTML = `
                     <h4>Selected Armors:</h4>
                     <ul>
-                        ${selected.map(item => `<li>${item}</li>`).join('')}
+                        ${selected.map(item => {
+                            let dropdownOptions = '';
+                            let dropdownHTML = '';
+
+                            if (item.subCategory === 'light-helmets-list' || item.subCategory === 'medium-helmets-list' || item.subCategory === 'heavy-helmets-list') {
+                                // Helmet runes
+                                dropdownOptions = `
+                                    <option value="Helmet Rune">Strength Rune</option>
+                                    <option value="Helmet Rune">Agility Rune</option>
+                                    <option value="Helmet Rune">Intellect Rune</option>
+                                    <option value="Helmet Rune">Spirit Rune</option>
+                                    <option value="Helmet Rune">Boar Rune</option>
+                                    <option value="Helmet Rune">Storm Caller Rune</option>
+                                    <option value="Helmet Rune">Dire Bear Rune</option>
+                                    <option value="Helmet Rune">Rune Golem Rune</option>
+                                `;
+                                // Add 4 dropdowns for helmets
+                                for (let i = 1; i <= 4; i++) {
+                                    dropdownHTML += `
+                                        <div class="dropdown-container">
+                                            <select class="rune-dropdown">
+                                                <option value="">Select Rune ${i}</option>
+                                                ${dropdownOptions}
+                                            </select>
+                                        </div>
+                                    `;
+                                }
+                            } else if (item.subCategory === 'light-chestplates-list' || item.subCategory === 'medium-chestplates-list' || item.subCategory === 'heavy-chestplates-list') {
+                                // Chestplate runes
+                                dropdownOptions = `
+                                    <option value="Chestplate Rune">Strength Rune</option>
+                                    <option value="Chestplate Rune">Agility Rune</option>
+                                    <option value="Chestplate Rune">Intellect Rune</option>
+                                    <option value="Chestplate Rune">Spirit Rune</option>
+                                    <option value="Chestplate Rune">Stamina Rune</option>
+                                    <option value="Chestplate Rune">Rat Rune</option>
+                                    <option value="Chestplate Rune">Serpent Rune</option>
+                                    <option value="Chestplate Rune">Amphithere Rune</option>
+                                    <option value="Chestplate Rune">Mud Crab Rune</option>
+                                    <option value="Chestplate Rune">Braelor Rune</option>
+                                    <option value="Chestplate Rune">Gralthar Rune</option>
+                                    <option value="Chestplate Rune">Fiend Rune</option>
+                                    <option value="Chestplate Rune">King Mandrake Rune</option>
+                                    <option value="Chestplate Rune">Lycanthar Rune</option>
+                                    <option value="Chestplate Rune">Licht King Rune</option>
+                                    <option value="Chestplate Rune">Ancient Demon Rune</option>
+                                `;
+                                // Add 6 dropdowns for chestplates
+                                for (let i = 1; i <= 6; i++) {
+                                    dropdownHTML += `
+                                        <div class="dropdown-container">
+                                            <select class="rune-dropdown">
+                                                <option value="">Select Rune ${i}</option>
+                                                ${dropdownOptions}
+                                            </select>
+                                        </div>
+                                    `;
+                                }
+                            } else if (item.subCategory === 'light-boots-list' || item.subCategory === 'medium-boots-list' || item.subCategory === 'heavy-boots-list') {
+                                // Boots runes
+                                dropdownOptions = `
+                                    <option value="Boots Rune">Strength Rune</option>
+                                    <option value="Boots Rune">Agility Rune</option>
+                                    <option value="Boots Rune">Intellect Rune</option>
+                                    <option value="Boots Rune">Spirit Rune</option>
+                                    <option value="Boots Rune">Deer Rune</option>
+                                    <option value="Boots Rune">Wolf Rune</option>
+                                    <option value="Boots Rune">Bear Rune</option>
+                                    <option value="Boots Rune">Panther Rune</option>
+                                    <option value="Boots Rune">Banshee Rune</option>
+                                    <option value="Boots Rune">Hill Troll Rune</option>
+                                    <option value="Boots Rune">Razor Fang Rune</option>
+                                    <option value="Boots Rune">Purity Rune</option>
+                                `;
+                                // Add 4 dropdowns for boots
+                                for (let i = 1; i <= 4; i++) {
+                                    dropdownHTML += `
+                                        <div class="dropdown-container">
+                                            <select class="rune-dropdown">
+                                                <option value="">Select Rune ${i}</option>
+                                                ${dropdownOptions}
+                                            </select>
+                                        </div>
+                                    `;
+                                }
+                            } else {
+                                // General runes for other armor types
+                                dropdownOptions = `
+                                    <option value="General Rune 1">General Rune 1</option>
+                                    <option value="General Rune 2">General Rune 2</option>
+                                `;
+                                // Add a single dropdown for other armor types
+                                dropdownHTML = `
+                                    <div class="dropdown-container">
+                                        <select class="rune-dropdown">
+                                            <option value="">Select Rune</option>
+                                            ${dropdownOptions}
+                                        </select>
+                                    </div>
+                                `;
+                            }
+
+                            return `
+                                <li class="rune-section">
+                                    <h5>${item.name}</h5>
+                                    ${dropdownHTML}
+                                    <hr class="divider">
+                                </li>
+                            `;
+                        }).join('')}
                     </ul>
                 `;
             }
         }
 
-        // Uuenda "Runes" tab-i, kui armor valitakse
+        // Update the "Runes" tab when armor is selected
         armorCheckboxes.forEach(checkbox => {
             checkbox.addEventListener('change', () => {
                 updateRunesTab();
-                calculateStats(); // Jätke ka stats arvutamine
+                calculateStats(); // Keep stats calculation
             });
         });
 
-        // Algne uuendus lehe laadimisel
+        // Initial update on page load
         document.addEventListener('DOMContentLoaded', updateRunesTab);
     </script>
    

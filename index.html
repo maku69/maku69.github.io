@@ -127,18 +127,38 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1; /* Võtab ülejäänud ruumi, et jalus liiguks lehe lõppu */
+        }
+
+        footer {
+            text-align: left;
+            font-size: 14px;
+            color: #666;
+            background-color: #f9f9f9;
+            padding: 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Sisu -->
         <div class="tabs">
             <div class="tab active" data-tab="stats">Stats</div>
             <div class="tab" data-tab="abilities">Abilities</div>
             <div class="tab" data-tab="passive-skills">Passive Skills</div>
-            <div class="tab" data-tab="armor">Armor</div> <!-- New Armor Tab -->
+            <div class="tab" data-tab="armor">Armor</div>
         </div>
-
         <div id="stats" class="tab-content active">
+            <!-- Stats sisu -->
             <h2>Stats</h2>
             <div class="stats">
                 <!-- Pealkirjad veergudele -->
@@ -218,20 +238,20 @@
             <button id="reset-button">Reset</button>
             <p class="error" id="error"></p>
         </div>
-
         <div id="abilities" class="tab-content">
+            <!-- Abilities sisu -->
             <h2>Abilities</h2>
             <p>Abilities content goes here.</p>
         </div>
-
         <div id="passive-skills" class="tab-content">
+            <!-- Passive Skills sisu -->
             <h2>Passive Skills</h2>
             <div id="passive-skills-content">
                 <p>Select a starting class to see passive skills.</p>
             </div>
         </div>
-
         <div id="armor" class="tab-content">
+            <!-- Armor sisu -->
             <h2>Armor</h2>
             <div class="armor-lists">
                 <!-- Helmets Section -->
@@ -1276,5 +1296,9 @@
             });
         });
     </script>
+    <!-- Jalus -->
+    <footer>
+        <p>Version 1.0.0 Made by 1Maku</p>
+    </footer>
 </body>
 </html>

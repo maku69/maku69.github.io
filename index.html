@@ -86,6 +86,47 @@
         .stat-checkbox {
             margin-right: 10px;
         }
+        /* Styles for the armor list */
+        .armor-selection {
+            margin-bottom: 20px;
+        }
+
+        .armor-list {
+            display: none; /* Hide the list by default */
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .armor-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .armor-category h3 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        #selected-items {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
@@ -94,6 +135,7 @@
             <div class="tab active" data-tab="stats">Stats</div>
             <div class="tab" data-tab="abilities">Abilities</div>
             <div class="tab" data-tab="passive-skills">Passive Skills</div>
+            <div class="tab" data-tab="armor">Armor</div> <!-- New Armor Tab -->
         </div>
 
         <div id="stats" class="tab-content active">
@@ -188,6 +230,478 @@
                 <p>Select a starting class to see passive skills.</p>
             </div>
         </div>
+
+        <div id="armor" class="tab-content">
+            <h2>Armor</h2>
+            <div class="armor-lists">
+                <!-- Helmets Section -->
+                <div class="armor-category">
+                    <h3>
+                        Helmets
+                        <button class="dropdown-toggle" data-target="helmets-list">▼</button>
+                    </h3>
+                    <ul id="helmets-list" class="armor-list">
+                        <li>
+                            <h4>
+                                Light Helmets
+                                <button class="dropdown-toggle" data-target="light-helmets-list">▼</button>
+                            </h4>
+                            <ul id="light-helmets-list" class="armor-list">
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Cotton Headband">
+                                    <label>Cotton Headband</label>
+                                    <label>+1 Str, 30 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Cotton Hat">
+                                    <label>Cotton Hat</label>
+                                    <label>+1 Int, 15 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Flax Headband">
+                                    <label>Flax Headband</label>
+                                    <label>+3 Str, 60 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Flax Hat">
+                                    <label>Flax Hat</label>
+                                    <label>+3 Int, 30 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Silk Headband">
+                                    <label>Silk Headband</label>
+                                    <label>+4 Str, 120 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Silk Hat">
+                                    <label>Silk Hat</label>
+                                    <label>+4 Int, 60 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Lilyleaf Headband">
+                                    <label>Lilyleaf Headband</label>
+                                    <label>+6 Str, 160 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Lilyleaf Hat">
+                                    <label>Lilyleaf Hat</label>
+                                    <label>+6 Int, 80 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Straw Hat">
+                                    <label>Straw Hat</label>
+                                    <label>+10 Agi, +5% Fishing Power, 175 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Vangar's Scarf">
+                                    <label>Vangar's Scarf</label>
+                                    <label>+10 Str, +2 Spr, 50 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Arachnids Hat">
+                                    <label>Arachnids Hat</label>
+                                    <label>+12 Int, +2 Spr, 97 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Dire Bear Hat">
+                                    <label>Dire Bear Hat</label>
+                                    <label>+12 Str, +1 Stm, 226 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Licht Hood">
+                                    <label>Licht Hood</label>
+                                    <label>+10 Int, +10 Spr, 95 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Hellfang Headband">
+                                    <label>Hellfang Headband</label>
+                                    <label>+11 Str, +2% Phys Pierce, 263 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Malefic Hat">
+                                    <label>Malefic Hat</label>
+                                    <label>+11 Int, +2% Magic Cc, 94 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Seraph Headband">
+                                    <label>Seraph Headband</label>
+                                    <label>+11 Str, +2 Phys Pierce, 263 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Sanctified Hat">
+                                    <label>Sanctified Hat</label>
+                                    <label>+11 Int, +1% Magic Cc, 94 Armor</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>
+                                Medium Helmets
+                                <button class="dropdown-toggle" data-target="medium-helmets-list">▼</button>
+                            </h4>
+                            <ul id="medium-helmets-list" class="armor-list">
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Light Leather Mask">
+                                    <label>Light Leather Mask</label>
+                                    <label>+1 Agi, 30 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Medium Leather Mask">
+                                    <label>Medium Leather Mask</label>
+                                    <label>+3 Agi, 65 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Heavy Leather Mask">
+                                    <label>Heavy Leather Mask</label>
+                                    <label>+4 Agi, 125 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Thick Leather Mask">
+                                    <label>Thick Leather Mask</label>
+                                    <label>+6 Agi, 170 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Assassin's Hood">
+                                    <label>Assassin's Hood</label>
+                                    <label>+2 Spr, +8 Agi, 220 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Elder Mask">
+                                    <label>Elder Mask</label>
+                                    <label>+5 Spr, +10 Agi, 235 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Stalker Hood">
+                                    <label>Stalker Hood</label>
+                                    <label>+9 Agi, +2 Stm, +3% Phys Pierce, 225 Armor</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>
+                                Heavy Helmets
+                                <button class="dropdown-toggle" data-target="heavy-helmets-list">▼</button>
+                            </h4>
+                            <ul id="heavy-helmets-list" class="armor-list">
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Copper Helmet">
+                                    <label>Copper Helmet</label>
+                                    <label>+1 Str, 55 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Iron Helmet">
+                                    <label>Iron Helmet</label>
+                                    <label>+3 Str, 120 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Silver Helmet">
+                                    <label>Silver Helmet</label>
+                                    <label>+4 Str, 200 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Winged Helmet">
+                                    <label>Winged Helmet</label>
+                                    <label>+5 Str, +5 Spr, +3 Agi, 235 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Hodor's War Helmet">
+                                    <label>Hodor's War Helmet</label>
+                                    <label>+18 Str, +4 Stm, +1% Cc, 425 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Platinum Helmet">
+                                    <label>Platinum Helmet</label>
+                                    <label>+6 Str, 300 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="War Troll Helmet">
+                                    <label>War Troll Helmet</label>
+                                    <label>+11 Str, +4 Stm, 300 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Abyssal Helmet">
+                                    <label>Abyssal Helmet</label>
+                                    <label>+22 Str, +4% Magic Resist, +8% Buff Dur, 500 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Bastion Helmet">
+                                    <label>Bastion Helmet</label>
+                                    <label>+22 Str, +4% Magic Resist, +8% Buff Dur, 500 Armor</label>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Chest Section -->
+                <div class="armor-category">
+                    <h3>
+                        Chestplates
+                        <button class="dropdown-toggle" data-target="chestplates-list">▼</button>
+                    </h3>
+                    <ul id="chestplates-list" class="armor-list">
+                        <li>
+                            <h4>
+                                Light Chestplates
+                                <button class="dropdown-toggle" data-target="light-chestplates-list">▼</button>
+                            </h4>
+                            <ul id="light-chestplates-list" class="armor-list">
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Cotton Robes">
+                                    <label>Cotton Robes</label>
+                                    <label>+2 Int, 30 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Cotton Gi">
+                                    <label>Cotton Gi</label>
+                                    <label>+2 Str, 60 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Flax Robes">
+                                    <label>Flax Robes</label>
+                                    <label>+6 Int, 60 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Flax Gi">
+                                    <label>Flax Gi</label>
+                                    <label>+6 Str, 120 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Cloak of Rat Speed">
+                                    <label>Cloak of Rat Speed</label>
+                                    <label>+2 Spr, +14 Agi, +10% Speed Boost, 25 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Silk Robes">
+                                    <label>Silk Robes</label>
+                                    <label>+8 Int, 120 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Silk Gi">
+                                    <label>Silk Gi</label>
+                                    <label>+8 Str, 240 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Lilyleaf Robes">
+                                    <label>Lilyleaf Robes</label>
+                                    <label>+12 Int, 160 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Lilyleaf Gi">
+                                    <label>Lilyleaf Gi</label>
+                                    <label>+12 Str, 320 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Vangar's Coat">
+                                    <label>Vangar's Coat</label>
+                                    <label>+20 Str, +5 Spr, 100 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Arachnids Robes">
+                                    <label>Arachnids Robes</label>
+                                    <label>+24 Int, +4 Spr, +1% Magic CC, 194 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Dire Bear Garbs">
+                                    <label>Dire Bear Garbs</label>
+                                    <label>+24 Str, +2 Stm, 388 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Licht Robes">
+                                    <label>Licht Robes</label>
+                                    <label>+20 Int, +15 Spr, +1% Magic Cc, 190 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Malefic Robes">
+                                    <label>Malefic Robes</label>
+                                    <label>+22 Int, +4% Magic Pierce, +8% Cast Speed, 189 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Hellfang Gi">
+                                    <label>Hellfang Gi</label>
+                                    <label>+22 Str, +10% Crit Damage, +6% Magic Resist, 423 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Sanctified Robes">
+                                    <label>Sanctified Robes</label>
+                                    <label>+22 Int, +4% Magic Pierce, +8% Cast Speed, 189 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Seraph Gi">
+                                    <label>Seraph Gi</label>
+                                    <label>+22 Str, +10% Crit Damage, +6% Magic Resist</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>
+                                Medium Chestplates
+                                <button class="dropdown-toggle" data-target="medium-chestplates-list">▼</button>
+                            </h4>
+                            <ul id="medium-chestplates-list" class="armor-list">
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Light Leather Vest">
+                                    <label>Light Leather Vest</label>
+                                    <label>+2 Agi, 60 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Medium Leather Vest">
+                                    <label>Medium Leather Vest</label>
+                                    <label>+5 Agi, 130 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Heavy Leather Vest">
+                                    <label>Heavy Leather Vest</label>
+                                    <label>+8 Agi, 250 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Champion Belt">
+                                    <label>Champion Belt</label>
+                                    <label>+10 Str, +2 Stm, 280 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Assassin's Cloak">
+                                    <label>Assassin's Cloak</label>
+                                    <label>+4 Spr, +16 Agi, +2% Cc, 425 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Thick Leather Vest">
+                                    <label>Thick Leather Vest</label>
+                                    <label>+12 Agi, 340 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Elder Chest">
+                                    <label>Elder Chest</label>
+                                    <label>+10 Spr, +20 Agi, 470 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Drogar's Vest">
+                                    <label>Drogar's Vest</label>
+                                    <label>+9 Spr, +16 Agi, +3% Cc, 623 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Stalker Vest">
+                                    <label>Stalker Vest</label>
+                                    <label>+18 Agi, +4 Stm, +2% Cc, 450 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Foresworn Vest">
+                                    <label>Foresworn Vest</label>
+                                    <label>+18 Agi, +4 Stm, +2% Cc, 450 Armor</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>
+                                Heavy Chestplates
+                                <button class="dropdown-toggle" data-target="heavy-chestplates-list">▼</button>
+                            </h4>
+                            <ul id="heavy-chestplates-list" class="armor-list">
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Copper Chestplate">
+                                    <label>Copper Chestplate</label>
+                                    <label>+2 Str, 110 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Iron Chestplate">
+                                    <label>Iron Chestplate</label>
+                                    <label>+6 Str, 240 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Goblin Armor">
+                                    <label>Goblin Armor</label>
+                                    <label>+6 Str, +3 Spr, 375 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Silver Chestplate">
+                                    <label>Silver Chestplate</label>
+                                    <label>+8 Str, 400 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Platinum Chestplate">
+                                    <label>Platinum Chestplate</label>
+                                    <label>+12 Str, 600 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Crab Carapace">
+                                    <label>Crab Carapace</label>
+                                    <label>+12 Str, +12 Spr, +3 Stm, -5% Speed Boost, 950 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="War Troll Chestplate">
+                                    <label>War Troll Chestplate</label>
+                                    <label>+22 Str, +8 Stm, 850 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Abyssal Plate">
+                                    <label>Abyssal Plate</label>
+                                    <label>+45 Str, +10% Crit Damage, +4% Phys Pierce, 1000 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Turtle Shell">
+                                    <label>Turtle Shell</label>
+                                    <label>+28 Str, +8 Stm, +10% Crit Defense, +10% Magic Resist, 1000 Armor</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="armor-checkbox" value="Bastion Plate">
+                                    <label>Bastion Plate</label>
+                                    <label>+45 Str, +10% Crit Damage, +4% Phys Pierce, 1000 Armor</label>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Boots Section -->
+                <div class="armor-category">
+                    <h3>
+                        Boots
+                        <button class="dropdown-toggle" data-target="boots-list">▼</button>
+                    </h3>
+                    <ul id="boots-list" class="armor-list">
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Light Boots">
+                            <label>Light Boots</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Medium Boots">
+                            <label>Medium Boots</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Heavy Boots">
+                            <label>Heavy Boots</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Back Section -->
+                <div class="armor-category">
+                    <h3>
+                        Back
+                        <button class="dropdown-toggle" data-target="back-list">▼</button>
+                    </h3>
+                    <ul id="back-list" class="armor-list">
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Light Back">
+                            <label>Light Back</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <label>Medium Back</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Heavy Back">
+                            <label>Heavy Back</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Selected Items</h3>
+            <div id="selected-items">
+                <p>No items selected.</p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -199,6 +713,9 @@
         const passiveSkillsContent = document.getElementById('passive-skills-content');
         const resetButton = document.getElementById('reset-button');
         const abilitiesContent = document.getElementById('abilities');
+        const armorCheckboxes = document.querySelectorAll('.armor-checkbox');
+        const selectedItemsDiv = document.getElementById('selected-items');
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
 
         // Tab switching logic
         tabs.forEach(tab => {
@@ -459,6 +976,89 @@
             });
             passiveSkillsContent.innerHTML = `<p>Select a starting class to see passive skills.</p>`; // Reset Passive Skills tab content
             updateAbilities(); // Update abilities tab
+        });
+
+        // Function to update the Selected Items section
+        function updateSelectedItems() {
+            const selected = Array.from(armorCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            if (selected.length === 0) {
+                selectedItemsDiv.innerHTML = '<p>No items selected.</p>';
+            } else {
+                selectedItemsDiv.innerHTML = '<ul>' +
+                    selected.map(item => `<li>${item}</li>`).join('') +
+                    '</ul>';
+            }
+        }
+
+        // Function to calculate stats from selected items
+        function calculateStats() {
+            const selected = Array.from(armorCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => ({
+                    name: checkbox.value,
+                    stats: checkbox.nextElementSibling.nextElementSibling.textContent // Get stats from the second label
+                }));
+
+            if (selected.length === 0) {
+                selectedItemsDiv.innerHTML = '<p>No items selected.</p>';
+            } else {
+                let totalStats = {};
+
+                // Parse and sum stats
+                selected.forEach(item => {
+                    const stats = item.stats.split(',').map(stat => stat.trim());
+                    stats.forEach(stat => {
+                        const match = stat.match(/^([\+\-\d\.%]+)\s+([\w\s%]+)$/); // Match value and full stat name
+                        if (match) {
+                            const value = parseFloat(match[1].replace('%', '')); // Remove % and parse number
+                            const key = match[2].trim(); // Use the full stat name
+                            if (!isNaN(value)) {
+                                totalStats[key] = (totalStats[key] || 0) + value;
+                            }
+                        }
+                    });
+                });
+
+                // Display selected items and total stats
+                selectedItemsDiv.innerHTML = `
+                    <h4>Selected Items:</h4>
+                    <ul>
+                        ${selected.map(item => `<li>${item.name} (${item.stats})</li>`).join('')}
+                    </ul>
+                    <h4>Total Stats:</h4>
+                    <ul>
+                        ${Object.entries(totalStats).map(([key, value]) => `<li>${key}: ${value}${key.includes('%') ? '%' : ''}</li>`).join('')}
+                    </ul>
+                `;
+            }
+        }
+
+        // Add event listeners to all checkboxes
+        armorCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', calculateStats);
+        });
+
+        // Initialize the Selected Items section on page load
+        document.addEventListener('DOMContentLoaded', calculateStats);
+
+        // Add event listeners to all dropdown toggle buttons (including nested ones)
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const targetId = toggle.getAttribute('data-target');
+                const targetList = document.getElementById(targetId);
+
+                // Toggle the visibility of the target list
+                if (targetList.style.display === 'none' || targetList.style.display === '') {
+                    targetList.style.display = 'block';
+                    toggle.textContent = '▲'; // Change button text to indicate collapse
+                } else {
+                    targetList.style.display = 'none';
+                    toggle.textContent = '▼'; // Change button text to indicate expand
+                }
+            });
         });
     </script>
 </body>

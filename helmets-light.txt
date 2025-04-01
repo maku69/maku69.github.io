@@ -1,3 +1,0 @@
-Light Helmet:
-- Provides agility and speed.
-- Minimal protection.

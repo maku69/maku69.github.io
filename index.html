@@ -264,21 +264,25 @@
             gap: 10px;
             margin-bottom: 5px;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Sisu -->
+        <!-- Tõsta tabs enne Stats sisu -->
         <div class="tabs">
             <div class="tab active" data-tab="stats">Stats</div>
             <div class="tab" data-tab="abilities">Abilities</div>
             <div class="tab" data-tab="passive-skills">Passive Skills</div>
             <div class="tab" data-tab="armor">Armor</div>
-            <div class="tab" data-tab="runes">Runes</div> <!-- Uus tab -->
-            <div class="tab" data-tab="weapon">Weapon</div> <!-- Uus Weapon tab -->
+            <div class="tab" data-tab="runes">Runes</div>
+            <div class="tab" data-tab="weapon">Weapon</div>
             <div class="tab" data-tab="about">About</div>
-            <div class="tab" data-tab="summary">Summary</div> <!-- Uus Summary tab -->
+            <div class="tab" data-tab="summary">Summary</div>
         </div>
+
         <div id="stats" class="tab-content active">
             <!-- Stats sisu -->
             <h2>Stats</h2>
@@ -1110,15 +1114,24 @@
                             <input type="checkbox" class="weapon-checkbox" value="Iron Sword">
                             <label>Iron Sword</label>
                             <label>+10 Str, +5% Crit Chance</label>
-                            <div class="weapon-runes">
+                            <div class="weapon-runes hidden">
                                 <select class="weapon-rune-dropdown">
                                     <option value="">Select Rune 1</option>
+                                    <option value="Crit Rune">+5% Crit Chance</option>
+                                    <option value="Power Rune">+10 Str</option>
+                                    <option value="Speed Rune">+5% Attack Speed</option>
                                 </select>
                                 <select class="weapon-rune-dropdown">
                                     <option value="">Select Rune 2</option>
+                                    <option value="Crit Rune">+5% Crit Chance</option>
+                                    <option value="Power Rune">+10 Str</option>
+                                    <option value="Speed Rune">+5% Attack Speed</option>
                                 </select>
                                 <select class="weapon-rune-dropdown">
                                     <option value="">Select Rune 3</option>
+                                    <option value="Crit Rune">+5% Crit Chance</option>
+                                    <option value="Power Rune">+10 Str</option>
+                                    <option value="Speed Rune">+5% Attack Speed</option>
                                 </select>
                             </div>
                         </li>
@@ -1798,6 +1811,25 @@
 
         // Algne uuendus lehe laadimisel
         document.addEventListener('DOMContentLoaded', updateSummaryTab);
+
+        // Funktsioon relvade ruunide dropdown-menüüde kuvamiseks
+        function toggleWeaponRunes() {
+            const weaponCheckboxes = document.querySelectorAll('.weapon-checkbox');
+
+            weaponCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    const runeContainer = checkbox.closest('li').querySelector('.weapon-runes');
+                    if (checkbox.checked) {
+                        runeContainer.classList.remove('hidden'); // Kuvab ruunide dropdown-menüüd
+                    } else {
+                        runeContainer.classList.add('hidden'); // Peidab ruunide dropdown-menüüd
+                    }
+                });
+            });
+        }
+
+        // Käivita funktsioon lehe laadimisel
+        document.addEventListener('DOMContentLoaded', toggleWeaponRunes);
     </script>
    
 </body>

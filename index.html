@@ -244,6 +244,26 @@
         .rune-dropdowns select {
             min-width: 150px; /* Ensure dropdowns have a consistent width */
         }
+        .weapon-category h3 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .weapon-list {
+            display: none; /* Hide the list by default */
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .weapon-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -255,7 +275,9 @@
             <div class="tab" data-tab="passive-skills">Passive Skills</div>
             <div class="tab" data-tab="armor">Armor</div>
             <div class="tab" data-tab="runes">Runes</div> <!-- Uus tab -->
+            <div class="tab" data-tab="weapon">Weapon</div> <!-- Uus Weapon tab -->
             <div class="tab" data-tab="about">About</div>
+            <div class="tab" data-tab="summary">Summary</div> <!-- Uus Summary tab -->
         </div>
         <div id="stats" class="tab-content active">
             <!-- Stats sisu -->
@@ -629,7 +651,7 @@
                                 <li>
                                     <input type="checkbox" class="armor-checkbox" value="Licht Robes">
                                     <label>Licht Robes</label>
-                                    <label>+20 Int, +15 Spr, +1% Magic Cc, 190 Armor</label>
+                                    <label>+20 Int, +15 Spr, +1% Magic Cc, +190 Armor</label>
                                 </li>
                                 <li>
                                     <input type="checkbox" class="armor-checkbox" value="Malefic Robes">
@@ -1066,10 +1088,7 @@
                 </div>
             </div>
 
-            <h3>Selected Items</h3>
-            <div id="selected-items">
-                <p>No items selected.</p>
-            </div>
+            
         </div>
         <div id="runes" class="tab-content">
             <!-- Runes sisu -->
@@ -1078,12 +1097,78 @@
                 <p>No armor selected.</p>
             </div>
         </div>
+        <div id="weapon" class="tab-content">
+            <h2>Weapons</h2>
+            <div class="weapon-lists">
+                <div class="weapon-category">
+                    <h3>
+                        Weapons
+                        <button class="dropdown-toggle" data-target="weapons-list">▼</button>
+                    </h3>
+                    <ul id="weapons-list" class="armor-list">
+                        <li>
+                            <input type="checkbox" class="weapon-checkbox" value="Iron Sword">
+                            <label>Iron Sword</label>
+                            <label>+10 Str, +5% Crit Chance</label>
+                            <div class="weapon-runes">
+                                <select class="weapon-rune-dropdown">
+                                    <option value="">Select Rune 1</option>
+                                </select>
+                                <select class="weapon-rune-dropdown">
+                                    <option value="">Select Rune 2</option>
+                                </select>
+                                <select class="weapon-rune-dropdown">
+                                    <option value="">Select Rune 3</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="weapon-checkbox" value="Steel Axe">
+                            <label>Steel Axe</label>
+                            <label>+15 Str, +3% Crit Damage</label>
+                            <div class="weapon-runes">
+                                <select class="weapon-rune-dropdown">
+                                    <option value="">Select Rune 1</option>
+                                </select>
+                                <select class="weapon-rune-dropdown">
+                                    <option value="">Select Rune 2</option>
+                                </select>
+                                <select class="weapon-rune-dropdown">
+                                    <option value="">Select Rune 3</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="weapon-checkbox" value="Magic Staff">
+                            <label>Magic Staff</label>
+                            <label>+20 Int, +10% Magic Damage</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="weapon-checkbox" value="Bow of Speed">
+                            <label>Bow of Speed</label>
+                            <label>+10 Agi, +5% Attack Speed</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Selected Weapons</h3>
+            <div id="selected-weapons">
+                <p>No weapons selected.</p>
+            </div>
+        </div>
         <div id="about" class="tab-content">
             <!-- About sisu -->
             <h2>About</h2>
             <p>Version 1.0.1</p>
             <p>Capes</p>
             <p>Made by 1Maku</p>
+        </div>
+        <div id="summary" class="tab-content">
+            <h2>Summary</h2>
+            <div id="summary-content">
+                <p>No items, runes, or weapons selected.</p>
+            </div>
         </div>
     </div>
 
@@ -1099,6 +1184,9 @@
         const armorCheckboxes = document.querySelectorAll('.armor-checkbox');
         const selectedItemsDiv = document.getElementById('selected-items');
         const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        const weaponCheckboxes = document.querySelectorAll('.weapon-checkbox');
+        const selectedWeaponsDiv = document.getElementById('selected-weapons');
+        const summaryContentDiv = document.getElementById('summary-content');
 
         // Tab switching logic
         tabs.forEach(tab => {
@@ -1376,7 +1464,7 @@
             }
         }
 
-        // Function to calculate stats from selected items
+        // Function to calculate stats from selected items and runes
         function calculateStats() {
             const selected = Array.from(armorCheckboxes)
                 .filter(checkbox => checkbox.checked)
@@ -1385,16 +1473,29 @@
                     stats: checkbox.nextElementSibling.nextElementSibling.textContent // Get stats from the second label
                 }));
 
-            if (selected.length === 0) {
-                selectedItemsDiv.innerHTML = '<p>No items selected.</p>';
+            const selectedRunes = Array.from(document.querySelectorAll('.rune-dropdown'))
+                .filter(dropdown => dropdown.value !== "")
+                .map(dropdown => ({
+                    name: dropdown.value,
+                    stats: dropdown.options[dropdown.selectedIndex].textContent // Get stats from the selected option
+                }));
+
+            const selectedWeapons = Array.from(weaponCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => ({
+                    name: checkbox.value,
+                    stats: checkbox.nextElementSibling.nextElementSibling.textContent // Get stats from the second label
+                }));
+
+            if (selected.length === 0 && selectedRunes.length === 0 && selectedWeapons.length === 0) {
+                selectedItemsDiv.innerHTML = '<p>No items, runes, or weapons selected.</p>';
             } else {
                 let totalStats = {};
 
-                // Parse and sum stats
-                selected.forEach(item => {
-                    const stats = item.stats.split(',').map(stat => stat.trim());
-                    stats.forEach(stat => {
-                        const match = stat.match(/^([\+\-\d\.%]+)\s+([\w\s%]+)$/); // Match value and full stat name
+                // Helper function to parse stats
+                function parseStats(stats) {
+                    stats.split(/,\s*/).forEach(stat => { // Split by commas and trim whitespace
+                        const match = stat.match(/^([\+\-\d\.%]+)\s*([\w\s%]+)$/); // Match value and stat name
                         if (match) {
                             const value = parseFloat(match[1].replace('%', '')); // Remove % and parse number
                             const key = match[2].trim(); // Use the full stat name
@@ -1403,13 +1504,39 @@
                             }
                         }
                     });
+                }
+
+                // Parse and sum stats from selected items
+                selected.forEach(item => parseStats(item.stats));
+
+                // Parse and sum stats from selected runes
+                selectedRunes.forEach(rune => parseStats(rune.stats));
+
+                // Parse and sum stats from selected weapons
+                selectedWeapons.forEach(weapon => parseStats(weapon.stats));
+
+                // Ensure "Armor" is included even if it doesn't have "+" or "-" signs
+                [...selected, ...selectedRunes, ...selectedWeapons].forEach(item => {
+                    const armorMatch = item.stats.match(/(\d+)\s*Armor/); // Match "X Armor"
+                    if (armorMatch) {
+                        const armorValue = parseInt(armorMatch[1], 10);
+                        totalStats["Armor"] = (totalStats["Armor"] || 0) + armorValue;
+                    }
                 });
 
-                // Display selected items and total stats
+                // Display selected items, runes, weapons, and total stats
                 selectedItemsDiv.innerHTML = `
                     <h4>Selected Items:</h4>
                     <ul>
                         ${selected.map(item => `<li>${item.name} (${item.stats})</li>`).join('')}
+                    </ul>
+                    <h4>Selected Runes:</h4>
+                    <ul>
+                        ${selectedRunes.map(rune => `<li>${rune.name} (${rune.stats})</li>`).join('')}
+                    </ul>
+                    <h4>Selected Weapons:</h4>
+                    <ul>
+                        ${selectedWeapons.map(weapon => `<li>${weapon.name} (${weapon.stats})</li>`).join('')}
                     </ul>
                     <h4>Total Stats:</h4>
                     <ul>
@@ -1419,8 +1546,20 @@
             }
         }
 
-        // Add event listeners to all checkboxes
+        // Add event listeners to all rune dropdowns
+        document.addEventListener('change', event => {
+            if (event.target.classList.contains('rune-dropdown')) {
+                calculateStats();
+            }
+        });
+
+        // Add event listeners to all armor checkboxes
         armorCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', calculateStats);
+        });
+
+        // Add event listeners to all weapon checkboxes
+        weaponCheckboxes.forEach(checkbox => {
             checkbox.addEventListener('change', calculateStats);
         });
 
@@ -1470,14 +1609,15 @@
                     if (item.subCategory === 'light-helmets-list' || item.subCategory === 'medium-helmets-list' || item.subCategory === 'heavy-helmets-list') {
                         // Helmet runes
                         dropdownOptions = `
-                            <option value="Helmet Rune">Strength Rune</option>
-                            <option value="Helmet Rune">Agility Rune</option>
-                            <option value="Helmet Rune">Intellect Rune</option>
-                            <option value="Helmet Rune">Spirit Rune</option>
-                            <option value="Helmet Rune">Boar Rune</option>
-                            <option value="Helmet Rune">Storm Caller Rune</option>
-                            <option value="Helmet Rune">Dire Bear Rune</option>
-                            <option value="Helmet Rune">Rune Golem Rune</option>
+                            <option value="Helmet Rune">Strength Rune +6 Str</option>
+                            <option value="Helmet Rune">Agility Rune +6 Agi</option>
+                            <option value="Helmet Rune">Intellect Rune +6 Int</option>
+                            <option value="Helmet Rune">Spirit Rune +6 Spr</option>
+                            <option value="Helmet Rune">Stamina Rune +2 Stm</option>
+                            <option value="Helmet Rune">Boar Rune +4 Strength +2 Stamina</option>
+                            <option value="Helmet Rune">Storm Caller Rune +5 Spirit +5% Magic Attack</option>
+                            <option value="Helmet Rune">Dire Bear Rune +2 Stm +6% Phys Pierce</option>
+                            <option value="Helmet Rune">Rune Golem Rune +3 Stm +2% Holy Resistance +15% Cooldown Reduction</option>
                         `;
                         // Add 4 dropdowns for helmets
                         for (let i = 1; i <= 4; i++) {
@@ -1491,11 +1631,11 @@
                     } else if (item.subCategory === 'light-chestplates-list' || item.subCategory === 'medium-chestplates-list' || item.subCategory === 'heavy-chestplates-list') {
                         // Chestplate runes
                         dropdownOptions = `
-                            <option value="Chestplate Rune">Strength Rune</option>
-                            <option value="Chestplate Rune">Agility Rune</option>
-                            <option value="Chestplate Rune">Intellect Rune</option>
-                            <option value="Chestplate Rune">Spirit Rune</option>
-                            <option value="Chestplate Rune">Stamina Rune</option>
+                            <option value="Chestplate Rune">Strength Rune +6 Str</option>
+                            <option value="Chestplate Rune">Agility Rune +6 Agi</option>
+                            <option value="Chestplate Rune">Intellect Rune +6 Int</option>
+                            <option value="Chestplate Rune">Spirit Rune +6 Spr</option>
+                            <option value="Stamina Rune">Stamina Rune, +2 Stm</option>
                             <option value="Chestplate Rune">Rat Rune</option>
                             <option value="Chestplate Rune">Serpent Rune</option>
                             <option value="Chestplate Rune">Amphithere Rune</option>
@@ -1504,8 +1644,8 @@
                             <option value="Chestplate Rune">Gralthar Rune</option>
                             <option value="Chestplate Rune">Fiend Rune</option>
                             <option value="Chestplate Rune">King Mandrake Rune</option>
-                            <option value="Chestplate Rune">Lycanthar Rune</option>
-                            <option value="Chestplate Rune">Licht King Rune</option>
+                            <option value="Chestplate Rune">Lycanthar Rune, +8 Str, -5 Int, +3 Stm, +5% Magic Resistance</option>
+                            <option value="Chestplate Rune">Licht King Rune, +3 Int, +10 Spr, +5% Concentration</option>
                             <option value="Chestplate Rune">Ancient Demon Rune</option>
                         `;
                         // Add 6 dropdowns for chestplates
@@ -1571,6 +1711,93 @@
 
         // Initial update on page load
         document.addEventListener('DOMContentLoaded', updateRunesTab);
+
+        // Funktsioon "Summary" tab-i uuendamiseks
+        function updateSummaryTab() {
+            const selected = Array.from(armorCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => ({
+                    name: checkbox.value,
+                    stats: checkbox.nextElementSibling.nextElementSibling.textContent // Get stats from the second label
+                }));
+
+            const selectedRunes = Array.from(document.querySelectorAll('.rune-dropdown'))
+                .filter(dropdown => dropdown.value !== "")
+                .map(dropdown => ({
+                    name: dropdown.value,
+                    stats: dropdown.options[dropdown.selectedIndex].textContent // Get stats from the selected option
+                }));
+
+            const selectedWeapons = Array.from(weaponCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => ({
+                    name: checkbox.value,
+                    stats: checkbox.nextElementSibling.nextElementSibling.textContent // Get stats from the second label
+                }));
+
+            if (selected.length === 0 && selectedRunes.length === 0 && selectedWeapons.length === 0) {
+                summaryContentDiv.innerHTML = '<p>No items, runes, or weapons selected.</p>';
+            } else {
+                let totalStats = {};
+
+                // Helper function to parse stats
+                function parseStats(stats) {
+                    stats.split(/,\s*/).forEach(stat => { // Split by commas and trim whitespace
+                        const match = stat.match(/^([\+\-\d\.%]+)\s*([\w\s%]+)$/); // Match value and stat name
+                        if (match) {
+                            const value = parseFloat(match[1].replace('%', '')); // Remove % and parse number
+                            const key = match[2].trim(); // Use the full stat name
+                            if (!isNaN(value)) {
+                                totalStats[key] = (totalStats[key] || 0) + value;
+                            }
+                        }
+                    });
+                }
+
+                // Parse and sum stats from selected items
+                selected.forEach(item => parseStats(item.stats));
+
+                // Parse and sum stats from selected runes
+                selectedRunes.forEach(rune => parseStats(rune.stats));
+
+                // Parse and sum stats from selected weapons
+                selectedWeapons.forEach(weapon => parseStats(weapon.stats));
+
+                // Display summary
+                summaryContentDiv.innerHTML = `
+                    <h4>Selected Items:</h4>
+                    <ul>
+                        ${selected.map(item => `<li>${item.name} (${item.stats})</li>`).join('')}
+                    </ul>
+                    <h4>Selected Runes:</h4>
+                    <ul>
+                        ${selectedRunes.map(rune => `<li>${rune.name} (${rune.stats})</li>`).join('')}
+                    </ul>
+                    <h4>Selected Weapons:</h4>
+                    <ul>
+                        ${selectedWeapons.map(weapon => `<li>${weapon.name} (${weapon.stats})</li>`).join('')}
+                    </ul>
+                    <h4>Total Stats:</h4>
+                    <ul>
+                        ${Object.entries(totalStats).map(([key, value]) => `<li>${key}: ${value}${key.includes('%') ? '%' : ''}</li>`).join('')}
+                    </ul>
+                `;
+            }
+        }
+
+        // Lisa event listenerid, et uuendada "Summary" tab-i sisu
+        document.addEventListener('change', event => {
+            if (
+                event.target.classList.contains('armor-checkbox') ||
+                event.target.classList.contains('weapon-checkbox') ||
+                event.target.classList.contains('rune-dropdown')
+            ) {
+                updateSummaryTab();
+            }
+        });
+
+        // Algne uuendus lehe laadimisel
+        document.addEventListener('DOMContentLoaded', updateSummaryTab);
     </script>
    
 </body>

@@ -1018,16 +1018,50 @@
                     <ul id="back-list" class="armor-list">
                         <li>
                             <input type="checkbox" class="armor-checkbox" value="Light Back">
-                            <label>Light Back</label>
+                            <label>Rat Cape</label>
+                            <label>+12 Agi, +2% Cc</label>
                         </li>
                         <li>
                             <input type="checkbox" class="armor-checkbox" value="Medium Back">
-                            <label>Medium Back</label>
+                            <label>Champion Cape</label>
+                            <label>+12 Str, +4 Spr</label>
                         </li>
                         <li>
                             <input type="checkbox" class="armor-checkbox" value="Heavy Back">
-                            <label>Heavy Back</label>
+                            <label>Ectoplasmic Cloak</label>
+                            <label>+12 Int +4 Spr</label>
                         </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <label>Abyssal Shroud</label>
+                            <label>+25 Str, +5 Spr</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <label>Shadowstep Drape</label>
+                            <label>+25 Agi, +3% Speed Boost</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <label>Cowl of the Void</label>
+                            <label>+25 Int +10 Spr</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <label>Lion's Mantle</label>
+                            <label>+25 Str, +5 Spr</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <label>Windborne Cloak</label>
+                            <label>+25 Agi, 3% Speed Boost</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <label>Archon's Veil</label>
+                            <label>+25 Int, +10 Spr</label>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -1416,7 +1450,8 @@
                     name: checkbox.value,
                     listId: checkbox.closest('.armor-list').id, // Get the parent list ID
                     subCategory: checkbox.closest('ul').id // Get the specific subcategory ID
-                }));
+                }))
+                .filter(item => item.listId !== 'back-list'); // Exclude items from back-list
 
             const runesContent = document.getElementById('runes-content');
 

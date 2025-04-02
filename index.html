@@ -207,6 +207,7 @@
         }
 
         .rune-dropdown-group {
+            width: 60px;
             flex: 1; /* Make each dropdown group take equal space */
             display: flex;
             flex-direction: column; /* Stack dropdowns vertically */
@@ -214,7 +215,7 @@
         }
 
         .rune-dropdown-group select {
-            min-width: 150px; /* Ensure dropdowns have a consistent width */
+            min-width: 60px; /* Ensure dropdowns have a consistent width */
         }
         #runes-content {
             display: flex;
@@ -242,7 +243,7 @@
         }
 
         .rune-dropdowns select {
-            min-width: 150px; /* Ensure dropdowns have a consistent width */
+            min-width: 60px; /* Ensure dropdowns have a consistent width */
         }
         .weapon-category h3 {
             display: flex;
@@ -1622,15 +1623,15 @@
                     if (item.subCategory === 'light-helmets-list' || item.subCategory === 'medium-helmets-list' || item.subCategory === 'heavy-helmets-list') {
                         // Helmet runes
                         dropdownOptions = `
-                            <option value="Helmet Rune">Strength Rune +6 Str</option>
-                            <option value="Helmet Rune">Agility Rune +6 Agi</option>
-                            <option value="Helmet Rune">Intellect Rune +6 Int</option>
-                            <option value="Helmet Rune">Spirit Rune +6 Spr</option>
-                            <option value="Helmet Rune">Stamina Rune +2 Stm</option>
-                            <option value="Helmet Rune">Boar Rune +4 Strength +2 Stamina</option>
-                            <option value="Helmet Rune">Storm Caller Rune +5 Spirit +5% Magic Attack</option>
-                            <option value="Helmet Rune">Dire Bear Rune +2 Stm +6% Phys Pierce</option>
-                            <option value="Helmet Rune">Rune Golem Rune +3 Stm +2% Holy Resistance +15% Cooldown Reduction</option>
+                            <option value="Helmet Rune">Strength Rune, +6 Str</option>
+                            <option value="Helmet Rune">Agility Rune, +6 Agi</option>
+                            <option value="Helmet Rune">Intellect Rune, +6 Int</option>
+                            <option value="Spirit Rune">Spirit Rune, +6 Spr</option>
+                            <option value="Stamina Rune">Stamina Rune, +2 Stm</option>
+                            <option value="Boar Rune">Boar Rune, +4 Str, +2 Stm</option>
+                            <option value="Storm Caller Rune">Storm Caller Rune, +5 Spirit, +5% Magic Attack</option>
+                            <option value="Dire Bear Rune">Dire Bear Rune, +2 Stm, +6% Phys Pierce</option>
+                            <option value="Rune Golem Rune">Rune Golem Rune, +3 Stm, +2% Holy Resistance, +15% Cooldown Reduction</option>
                         `;
                         // Add 4 dropdowns for helmets
                         for (let i = 1; i <= 4; i++) {
@@ -1644,22 +1645,22 @@
                     } else if (item.subCategory === 'light-chestplates-list' || item.subCategory === 'medium-chestplates-list' || item.subCategory === 'heavy-chestplates-list') {
                         // Chestplate runes
                         dropdownOptions = `
-                            <option value="Chestplate Rune">Strength Rune +6 Str</option>
-                            <option value="Chestplate Rune">Agility Rune +6 Agi</option>
-                            <option value="Chestplate Rune">Intellect Rune +6 Int</option>
-                            <option value="Chestplate Rune">Spirit Rune +6 Spr</option>
+                            <option value="Strength Rune">Strength Rune, +6 Str</option>
+                            <option value="Agility Rune">Agility Rune, +6 Agi</option>
+                            <option value="Intellect Rune">Intellect Rune, +6 Int</option>
+                            <option value="Spirit Rune">Spirit Rune, +6 Spr</option>
                             <option value="Stamina Rune">Stamina Rune, +2 Stm</option>
-                            <option value="Chestplate Rune">Rat Rune</option>
-                            <option value="Chestplate Rune">Serpent Rune</option>
-                            <option value="Chestplate Rune">Amphithere Rune</option>
-                            <option value="Chestplate Rune">Mud Crab Rune</option>
-                            <option value="Chestplate Rune">Braelor Rune</option>
-                            <option value="Chestplate Rune">Gralthar Rune</option>
-                            <option value="Chestplate Rune">Fiend Rune</option>
-                            <option value="Chestplate Rune">King Mandrake Rune</option>
-                            <option value="Chestplate Rune">Lycanthar Rune, +8 Str, -5 Int, +3 Stm, +5% Magic Resistance</option>
-                            <option value="Chestplate Rune">Licht King Rune, +3 Int, +10 Spr, +5% Concentration</option>
-                            <option value="Chestplate Rune">Ancient Demon Rune</option>
+                            <option value="Rat Rune">Rat Rune, +4 Int, +2 Spr, +1% Speed Boost</option>
+                            <option value="Serpent Rune">Serpent Rune, +2 Spr, +8 Agi, +1 Stm</option>
+                            <option value="Amphithere Rune">Amphithere Rune, +5 Agi, +1% Speed Boost</option>
+                            <option value="Mud Crab Rune">Mud Crab Rune, +100 Armor, +2 Stm, -1% Speed Boost, +3% Magic Resistance</option>
+                            <option value="Braelor Rune">Braelor Rune, +5 Stre, +3 Stm, +2% Physical Attack</option>
+                            <option value="Gralthar Rune">Gralthar Rune, +5 Agi, +3 Stm, +2% Physical Attack</option>
+                            <option value="Fiend Rune">Fiend Rune, +4 Stm, +6% Fire Resistance</option>
+                            <option value="King Mandrake Rune">King Mandrake Rune, +3 Int, +5 Spr, +10% Concentration</option>
+                            <option value="Lycanthar Rune">Lycanthar Rune, +8 Str, -5 Int, +3 Stm, +5% Magic Resistance</option>
+                            <option value="Licht King Rune">Licht King Rune, +3 Int, +10 Spr, +5% Concentration</option>
+                            <option value="Ancient Demon Rune">Ancient Demon Rune, +5 Stm, +5% Phys Attack, +6% Fire Resistance</option>
                         `;
                         // Add 6 dropdowns for chestplates
                         for (let i = 1; i <= 6; i++) {
@@ -1673,18 +1674,19 @@
                     } else if (item.subCategory === 'light-boots-list' || item.subCategory === 'medium-boots-list' || item.subCategory === 'heavy-boots-list') {
                         // Boots runes
                         dropdownOptions = `
-                            <option value="Boots Rune">Strength Rune</option>
-                            <option value="Boots Rune">Agility Rune</option>
-                            <option value="Boots Rune">Intellect Rune</option>
-                            <option value="Boots Rune">Spirit Rune</option>
-                            <option value="Boots Rune">Deer Rune</option>
-                            <option value="Boots Rune">Wolf Rune</option>
-                            <option value="Boots Rune">Bear Rune</option>
-                            <option value="Boots Rune">Panther Rune</option>
-                            <option value="Boots Rune">Banshee Rune</option>
-                            <option value="Boots Rune">Hill Troll Rune</option>
-                            <option value="Boots Rune">Razor Fang Rune</option>
-                            <option value="Boots Rune">Purity Rune</option>
+                            <option value="Strength Rune">Strength Rune, +6 Str</option>
+                            <option value="Agility Rune">Agility Rune, +6 Agi</option>
+                            <option value="Intellect Rune">Intellect Rune, +6 Int</option>
+                            <option value="Spirit Rune">Spirit Rune, +6 Spr</option>
+                            <option value="Stamina Rune">Stamina Rune, +2 Stm</option>
+                            <option value="Deer Rune">Deer Rune, +3 Spr, +1 Stm</option>
+                            <option value="Wolf Rune">Wolf Rune, +1 Spr, +6 Agi, +2 Stm</option>
+                            <option value="Bear Rune">Bear Rune, +8 Str, +2 Stm, +2% Magic Resistance</option>
+                            <option value="Panther Rune">Panther Rune, +8 Agi, +1 Stm, +2% Phys Pierce</option>
+                            <option value="Banshee Rune">Banshee Rune, +5 Int, +4 Spr</option>
+                            <option value="Hill Troll Rune">Hill Troll Rune, +8 Str, +3 Stm, +2% Magic Resistance, +2% Holy Resistance</option>
+                            <option value="Razor Fang Rune">Razor Fang Rune, +5 Stm, +5% Magic Resistance</option>
+                            <option value="Purity Rune">Purity Rune, +5 Spr, +5% Holy Attack</option>
                         `;
                         // Add 4 dropdowns for boots
                         for (let i = 1; i <= 4; i++) {

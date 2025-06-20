@@ -303,7 +303,7 @@
                         <label for="archer">Archer:</label>
                     </div>
                     <div class="input-column">
-                        <input type="number" id="archer" min="0" max="40" value="0">
+                        <input type="number" id="archer" min="0" max="50" value="0">
                     </div>
                 </div>
                 <div class="stat">
@@ -314,7 +314,7 @@
                         <label for="warrior">Warrior:</label>
                     </div>
                     <div class="input-column">
-                        <input type="number" id="warrior" min="0" max="40" value="0">
+                        <input type="number" id="warrior" min="0" max="50" value="0">
                     </div>
                 </div>
                 <div class="stat">
@@ -325,7 +325,7 @@
                         <label for="magician">Magician:</label>
                     </div>
                     <div class="input-column">
-                        <input type="number" id="magician" min="0" max="40" value="0">
+                        <input type="number" id="magician" min="0" max="50" value="0">
                     </div>
                 </div>
                 <div class="stat">
@@ -336,7 +336,7 @@
                         <label for="priest">Priest:</label>
                     </div>
                     <div class="input-column">
-                        <input type="number" id="priest" min="0" max="40" value="0">
+                        <input type="number" id="priest" min="0" max="50" value="0">
                     </div>
                 </div>
                 <div class="stat">
@@ -347,7 +347,7 @@
                         <label for="striker">Striker:</label>
                     </div>
                     <div class="input-column">
-                        <input type="number" id="striker" min="0" max="40" value="0">
+                        <input type="number" id="striker" min="0" max="50" value="0">
                     </div>
                 </div>
                 <div class="stat">
@@ -358,7 +358,18 @@
                         <label for="thief">Thief:</label>
                     </div>
                     <div class="input-column">
-                        <input type="number" id="thief" min="0" max="40" value="0">
+                        <input type="number" id="thief" min="0" max="50" value="0">
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="checkbox-column">
+                        <input type="checkbox" class="stat-checkbox">
+                    </div>
+                    <div class="stat-column">
+                        <label for="samurai">Samurai:</label>
+                    </div>
+                    <div class="input-column">
+                        <input type="number" id="samurai" min="0" max="50" value="0">
                     </div>
                 </div>
             </div>
@@ -822,7 +833,6 @@
                                     <label>Flax Shoes</label>
                                     <label>+3 Agi, 40 Armor</label>
                                 </li>
-                                <!-- Add more light boots here -->
                                 <li>
                                     <input type="checkbox" class="armor-checkbox" value="Cotton Pants">
                                     <label>Cotton Pants</label>
@@ -1044,47 +1054,47 @@
                     </h3>
                     <ul id="back-list" class="armor-list">
                         <li>
-                            <input type="checkbox" class="armor-checkbox" value="Light Back">
+                            <input type="checkbox" class="armor-checkbox" value="Rat Cape">
                             <label>Rat Cape</label>
                             <label>+12 Agi, +2% Cc</label>
                         </li>
                         <li>
-                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <input type="checkbox" class="armor-checkbox" value="Champion Cape">
                             <label>Champion Cape</label>
                             <label>+12 Str, +4 Spr</label>
                         </li>
                         <li>
-                            <input type="checkbox" class="armor-checkbox" value="Heavy Back">
+                            <input type="checkbox" class="armor-checkbox" value="Ectoplasmic Cloak">
                             <label>Ectoplasmic Cloak</label>
-                            <label>+12 Int +4 Spr</label>
+                            <label>+12 Int, +4 Spr</label>
                         </li>
                         <li>
-                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <input type="checkbox" class="armor-checkbox" value="Abyssal Shroud">
                             <label>Abyssal Shroud</label>
                             <label>+25 Str, +5 Spr</label>
                         </li>
                         <li>
-                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <input type="checkbox" class="armor-checkbox" value="Shadowstep Drape">
                             <label>Shadowstep Drape</label>
                             <label>+25 Agi, +3% Speed Boost</label>
                         </li>
                         <li>
-                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <input type="checkbox" class="armor-checkbox" value="Cowl of the Void">
                             <label>Cowl of the Void</label>
-                            <label>+25 Int +10 Spr</label>
+                            <label>+25 Int, +10 Spr</label>
                         </li>
                         <li>
-                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <input type="checkbox" class="armor-checkbox" value="Lion's Mantle">
                             <label>Lion's Mantle</label>
                             <label>+25 Str, +5 Spr</label>
                         </li>
                         <li>
-                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <input type="checkbox" class="armor-checkbox" value="Windborne Cloak">
                             <label>Windborne Cloak</label>
                             <label>+25 Agi, 3% Speed Boost</label>
                         </li>
                         <li>
-                            <input type="checkbox" class="armor-checkbox" value="Medium Back">
+                            <input type="checkbox" class="armor-checkbox" value="Archon's Veil">
                             <label>Archon's Veil</label>
                             <label>+25 Int, +10 Spr</label>
                         </li>
@@ -1219,8 +1229,8 @@
                 let total = 0;
                 inputs.forEach(i => total += parseInt(i.value) || 0);
 
-                if (total > 40) {
-                    error.textContent = "Total stats cannot exceed 40!";
+                if (total > 50) {
+                    error.textContent = "Total stats cannot exceed 50!";
                     input.value = 0; // Reset the last input
                 } else {
                     error.textContent = "";
@@ -1321,7 +1331,23 @@
                                 <li>Level 35: Momentum Builder - Every hit increases your damage for 5 seconds.</li>
                             </ul>
                         `;
-                    } else {
+                    } else if (index === 6) { // Samurai checkbox
+                        passiveSkillsContent.innerHTML = `
+                            <h3>Samurai Passive Skills</h3>
+                            <ul>
+                                <li>Level 0: Unsheathe - Resheathe your katana to charge it up for a powerful horizontal slash.</li>
+                                <li>Level 5: Battle Aura - +25 Attack Power, +5% Speed Boost, +5% Damage reduction (Active | 20s Duration)</li>
+                                <li>Level 7: Lightning Strikes Twice - Draw your blade, fiercely filleting your opponent.</li>
+                                <li>Level 10: Unsheathe Evolution - Drawing Blade: Sheathe your weapon, releasing a crescent strike in its wake. Quick Draw: Sheathe your blade and, once ready, release a flurry of slashes forward.</li>
+                                <li>Level 15: Battle Aura Evolution - Fierce Battle Aura: Temporarily Increases Damage. Swift Battle Aura: Temporarily Increases Movement Speed. Fortified Battle Aura: Temporarily Increases Defense.</li>
+                                <li>Level 16: Serpents Stance - Cut your enemy, slithering between them through their block.</li>
+                                <li>Level 22: Fierce Whirlwind - Rush forward and slash a whirlwind in a circle around you.</li>
+                                <li>Level 25: Battle Aura Evolution 3 - Choices based on your previous chosen battle aura. Fierce Battle Aura: Savage Battle Aura or Warrior's Battle Aura. Swift Battle Aura: Rapid Battle Aura or Alacrity Battle Aura. Fortified Battle Aura: Aegis Battle Aura or Protective Battle Aura.</li>
+                            </ul>
+                        `;
+                    }
+                    
+                    else {
                         passiveSkillsContent.innerHTML = `<p>Select a starting class to see passive skills.</p>`;
                     }
                 }
@@ -1419,7 +1445,17 @@
                 { level: 28, name: "Whirl Wind - Spin for 2-4 seconds, dealing medium damage to nearby enemies." },
                 { level: 36, name: "Leap - Leap forward, stunning and dealing damage on impact." },
                 { level: 40, name: "Thrusting Strike - Deliver a devastating blow, sending any enemies backwards." }
-            ]
+            ],
+            samurai: [
+                { level: 0, name: "Unsheathe - Resheathe your katana to charge it up for a powerful horizontal slash." },
+                { level: 5, name: "Battle Aura - +25 Attack Power, +5% Speed Boost, +5% Damage reduction (Active | 20s Duration)" },
+                { level: 7, name: "Lightning Strikes Twice - Draw your blade, fiercely filleting your opponent." },
+                { level: 10, name: "Unsheathe Evolution - Drawing Blade: Sheathe your weapon, releasing a crescent strike in its wake. Quick Draw: Sheathe your blade and, once ready, release a flurry of slashes forward." },
+                { level: 15, name: "Battle Aura Evolution - Fierce Battle Aura: Temporarily Increases Damage. Swift Battle Aura: Temporarily Increases Movement Speed. Fortified Battle Aura: Temporarily Increases Defense." },
+                { level: 16, name: "Serpents Stance - Cut your enemy, slithering between them through their block." },
+                { level: 22, name: "Fierce Whirlwind - Rush forward and slash a whirlwind in a circle around you." },
+                { level: 25, name: "Battle Aura Evolution 3 - Choices based on your previous chosen battle aura. Fierce Battle Aura: Savage Battle Aura or Warrior's Battle Aura. Swift Battle Aura: Rapid Battle Aura or Alacrity Battle Aura. Fortified Battle Aura: Aegis Battle Aura or Protective Battle Aura." }
+            ],
         };
 
         function updateAbilities() {

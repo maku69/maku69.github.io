@@ -1447,7 +1447,7 @@
                 { level: 40, name: "Thrusting Strike - Deliver a devastating blow, sending any enemies backwards." }
             ],
             samurai: [
-                { level: 0, name: "Unsheathe - Resheathe your katana to charge it up for a powerful horizontal slash." },
+                { level: 1, name: "Unsheathe - Resheathe your katana to charge it up for a powerful horizontal slash." },
                 { level: 5, name: "Battle Aura - +25 Attack Power, +5% Speed Boost, +5% Damage reduction (Active | 20s Duration)" },
                 { level: 7, name: "Lightning Strikes Twice - Draw your blade, fiercely filleting your opponent." },
                 { level: 10, name: "Unsheathe Evolution - Drawing Blade: Sheathe your weapon, releasing a crescent strike in its wake. Quick Draw: Sheathe your blade and, once ready, release a flurry of slashes forward." },
@@ -1456,16 +1456,25 @@
                 { level: 22, name: "Fierce Whirlwind - Rush forward and slash a whirlwind in a circle around you." },
                 { level: 25, name: "Battle Aura Evolution 3 - Choices based on your previous chosen battle aura. Fierce Battle Aura: Savage Battle Aura or Warrior's Battle Aura. Swift Battle Aura: Rapid Battle Aura or Alacrity Battle Aura. Fortified Battle Aura: Aegis Battle Aura or Protective Battle Aura." }
             ],
-        };
+                             };
+
+        const classOrder = [
+            "archer",
+            "warrior",
+            "magician",
+            "priest",
+            "striker",
+            "thief",
+            "samurai"
+        ];
 
         function updateAbilities() {
             abilitiesContent.innerHTML = `<h2>Abilities</h2>`;
 
-            Object.keys(classAbilities).forEach(className => {
+            classOrder.forEach((className, idx) => {
                 const levelInput = document.getElementById(className);
-                const level = parseInt(levelInput.value) || 0;
-
-                const filteredAbilities = classAbilities[className].filter(ability => ability.level <= level);
+                const level = parseInt(levelInput?.value) || 0;
+                const filteredAbilities = (classAbilities[className] || []).filter(ability => ability.level <= level);
 
                 if (filteredAbilities.length > 0) {
                     abilitiesContent.innerHTML += `
@@ -1474,6 +1483,28 @@
                             ${filteredAbilities.map(ability => `<li>Level ${ability.level}: ${ability.name}</li>`).join('')}
                         </ul>
                     `;
+                }
+
+                // Subclass abilities
+                const statRow = document.querySelectorAll('.stat')[idx];
+                const checkbox = statRow?.querySelector('.stat-checkbox');
+                const subclassDropdown = statRow?.querySelector('.subclass-dropdown');
+                const subclassValue = subclassDropdown?.value;
+                if (checkbox?.checked && subclassValue) {
+                    // Find the selected subclass object
+                    const subclassObj = subclassOptions[idx].find(opt => opt.value === subclassValue);
+                    if (subclassObj && subclassObj.moves && subclassObj.moves.length > 0) {
+                        // Only show subclass moves up to the current class level
+                        const filteredMoves = subclassObj.moves.filter(move => move.level <= level);
+                        if (filteredMoves.length > 0) {
+                            abilitiesContent.innerHTML += `
+                                <h4>Subclass Abilities (${subclassObj.label})</h4>
+                                <ul>
+                                    ${filteredMoves.map(move => `<li>Level ${move.level}: ${move.name}</li>`).join('')}
+                                </ul>
+                            `;
+                        }
+                    }
                 }
             });
         }
@@ -1683,7 +1714,7 @@
                         dropdownOptions = `
                             <option value="Strength Rune">Strength Rune, +6 Str</option>
                             <option value="Agility Rune">Agility Rune, +6 Agi</option>
-                            <option value="Intellect Rune">Intellect Rune, +6 Int</option>
+                            <option value="Intellect Rune">Intellect Rune, +6 Str</option>
                             <option value="Spirit Rune">Spirit Rune, +6 Spr</option>
                             <option value="Stamina Rune">Stamina Rune, +2 Stm</option>
                             <option value="Rat Rune">Rat Rune, +4 Int, +2 Spr, +1% Speed Boost</option>
@@ -1712,7 +1743,7 @@
                         dropdownOptions = `
                             <option value="Strength Rune">Strength Rune, +6 Str</option>
                             <option value="Agility Rune">Agility Rune, +6 Agi</option>
-                            <option value="Intellect Rune">Intellect Rune, +6 Int</option>
+                            <option value="Intellect Rune">Intellect Rune, +6 Str</option>
                             <option value="Spirit Rune">Spirit Rune, +6 Spr</option>
                             <option value="Stamina Rune">Stamina Rune, +2 Stm</option>
                             <option value="Deer Rune">Deer Rune, +3 Spr, +1 Stm</option>
@@ -1868,6 +1899,196 @@
 
         // Käivita funktsioon lehe laadimisel
         document.addEventListener('DOMContentLoaded', toggleWeaponRunes);
+
+        // Define subclass options for each class in the order of your checkboxes
+const subclassOptions = [
+    // Archer
+    [
+        {
+            value: "sharpshooter",
+            label: "Sharpshooter",
+            moves: [
+                { level: 1, name: "Deadeye Shot - Powerful single target shot." },
+                { level: 5, name: "Eagle Vision - Temporarily increases accuracy." },
+                { level: 10, name: "Volley - Fires a barrage of arrows." }
+            ]
+        },
+        {
+            value: "beasttamer",
+            label: "Beast Tamer",
+            moves: [
+                { level: 1, name: "Summon Wolf - Summon a wolf companion." },
+                { level: 7, name: "Pack Leader - Boosts all summoned beasts." },
+                { level: 12, name: "Beast Bond - Share damage with your pet." }
+            ]
+        }
+    ],
+    // Warrior
+    [
+        {
+            value: "berserker",
+            label: "Berserker",
+            moves: [
+                { level: 1, name: "Rage - Increases damage, lowers defense." },
+                { level: 8, name: "Bloodthirst - Heal on kill." },
+                { level: 15, name: "Frenzy - Attack speed boost." }
+            ]
+        },
+        {
+            value: "knight",
+            label: "Knight",
+            moves: [
+                { level: 1, name: "Shield Wall - Greatly increases defense." },
+                { level: 10, name: "Taunt - Forces enemies to attack you." },
+                { level: 20, name: "Holy Strike - Deals bonus damage to undead." }
+            ]
+        }
+    ],
+    // Magician
+    [
+        {
+            value: "sorcerer",
+            label: "Sorcerer",
+            moves: [
+                { level: 1, name: "Fireball - Cast a powerful fireball." },
+                { level: 7, name: "Ice Lance - Freeze your enemy." },
+                { level: 15, name: "Arcane Surge - Boost magic damage." }
+            ]
+        },
+        {
+            value: "warlock",
+            label: "Warlock",
+            moves: [
+                { level: 1, name: "Curse - Weakens the enemy." },
+                { level: 8, name: "Life Drain - Steal HP from target." },
+                { level: 16, name: "Shadow Bolt - Dark magic attack." }
+            ]
+        }
+    ],
+    // Priest
+    [
+        {
+            value: "cleric",
+            label: "Cleric",
+            moves: [
+                { level: 1, name: "Bless - Increases party defense." },
+                { level: 10, name: "Heal - Restore HP to an ally." },
+                { level: 20, name: "Sanctuary - Area healing zone." }
+            ]
+        },
+        {
+            value: "oracle",
+            label: "Oracle",
+            moves: [
+                { level: 1, name: "Prophecy - Reveal enemy weaknesses." },
+                { level: 10, name: "Divine Light - Heal all allies." },
+                { level: 20, name: "Judgement - Smite all enemies." }
+            ]
+        }
+    ],
+    // Striker
+    [
+        {
+            value: "monk",
+            label: "Monk",
+            moves: [
+                { level: 1, name: "Palm Strike - Strong melee attack." },
+                { level: 8, name: "Meditate - Restore HP over time." },
+                { level: 15, name: "Chi Burst - Knockback enemies." }
+            ]
+        },
+        {
+            value: "ashura",
+            label: "Ashura",
+            moves: [
+                { level: 1, name: "Fury Combo - Unleash a flurry of blows." },
+                { level: 10, name: "Demon Fist - High damage punch." },
+                { level: 18, name: "Spirit Step - Quick dash." }
+            ]
+        }
+    ],
+    // Thief
+    [
+        {
+            value: "assassin",
+            label: "Assassin",
+            moves: [
+                { level: 1, name: "Shadowstep - Teleport behind the enemy." },
+                { level: 8, name: "Poison Blade - Apply poison on hit." },
+                { level: 15, name: "Silent Kill - Extra damage from stealth." }
+            ]
+        },
+        {
+            value: "ninja",
+            label: "Ninja",
+            moves: [
+                { level: 1, name: "Shuriken Toss - Throw multiple shurikens." },
+                { level: 7, name: "Smoke Bomb - Become untargetable." },
+                { level: 14, name: "Quick Slash - Fast melee attack." }
+            ]
+        }
+    ],
+    // Samurai
+    [
+        {
+            value: "orochi",
+            label: "Orochi",
+            moves: [
+                { level: 1, name: "Serpent Slash - Poisonous sword attack." },
+                { level: 10, name: "Venom Guard - Reduce poison damage." },
+                { level: 20, name: "Coil - Trap enemy in place." }
+            ]
+        }
+    ]
+];
+
+// Add subclass dropdowns to each stat row
+document.querySelectorAll('.stat').forEach((statRow, idx, statRows) => {
+    const checkbox = statRow.querySelector('.stat-checkbox');
+    if (!checkbox) return;
+
+    // Remove old dropdown if exists (prevents duplicates on reload)
+    let oldDropdown = statRow.querySelector('.subclass-dropdown');
+    if (oldDropdown) oldDropdown.remove();
+
+    // Create new dropdown
+    const subclassDropdown = document.createElement('select');
+    subclassDropdown.className = 'subclass-dropdown';
+    subclassDropdown.style.display = 'none';
+
+    // Add options for this class
+    subclassDropdown.innerHTML = `<option value="">Select subclass</option>` +
+        subclassOptions[idx].map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('');
+
+    // Insert after checkbox
+    checkbox.parentNode.appendChild(subclassDropdown);
+
+    // Show/hide the subclass dropdown for this class only
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+            // Uncheck all other checkboxes and hide their subclass dropdowns
+            document.querySelectorAll('.stat-checkbox').forEach((cb, i) => {
+                if (cb !== checkbox) {
+                    cb.checked = false;
+                    const otherRow = cb.closest('.stat');
+                    const otherDropdown = otherRow.querySelector('.subclass-dropdown');
+                    if (otherDropdown) {
+                        otherDropdown.style.display = 'none';
+                        otherDropdown.value = '';
+                    }
+                }
+            });
+            subclassDropdown.style.display = '';
+        } else {
+            subclassDropdown.style.display = 'none';
+            subclassDropdown.value = '';
+        }
+        updateAbilities();
+    });
+
+    // Update abilities when subclass changes
+    subclassDropdown.addEventListener('change', updateAbilities);
+});
     </script>
    
 </body>
